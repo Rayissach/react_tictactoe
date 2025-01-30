@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
 
 export default function Board({ value }) {
+    //An array of null values to allow access to squares by index [null, null..]
     const [squares, setSquares] = useState(Array(9).fill(null)) 
+    //Function to update square values using it's index
     const handlePlayer = (index) => {
+        //Create copy of null squares array
         const newSquares = [...squares]
-        newSquares[index] = value
+        //On click assign square at index prop value
+        newSquares[index] = value ? 'X' : 'O'
+        //Update hook with new value if not null
         setSquares(newSquares)
     }
     return (
