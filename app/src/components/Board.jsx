@@ -3,7 +3,9 @@ import React, { useState } from 'react'
 export default function Board({ value }) {
     const [squares, setSquares] = useState(Array(9).fill(null)) 
     const handlePlayer = (index) => {
-        
+        const newSquares = [...squares]
+        newSquares[index] = value
+        setSquares(newSquares)
     }
     return (
         <div>
