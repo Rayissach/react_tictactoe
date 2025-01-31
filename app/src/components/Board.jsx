@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
-export default function Board({ value, changeData, winner }) {
+export default function Board({ value, changeData, winner, reset, gameOver }) {
     //An array of null values to allow access to squares by index [null, null..]
     const [squares, setSquares] = useState(Array(9).fill(null)) 
-    const [gameOver, setGameOver] = useState(false)
 
     const lines = [
         [0,1,2] , [3,4,5], [6,7,8], //Rows
@@ -11,9 +10,13 @@ export default function Board({ value, changeData, winner }) {
         [0,3,6], [1,4,7], [2,5,8]   //Columns
     ]
 
+    useEffect(() => {
+        setSquares(Array(9).fill(null))
+    },[reset])
+
     //Function to update square values using it's index
     const handlePlayer = (index) => {
-        if (squares[index] !== null) {
+        if (squares[index] !== null || gameOver) {
             return
         }
         //Create copy of null squares array
@@ -25,6 +28,7 @@ export default function Board({ value, changeData, winner }) {
         //Callback function to toggle values and update to parent
         changeData()
 
+        //Iterate over lines array of tuples to detect any pattern for win
         for (let line of lines) {
             const [a, b, c] = line
             if (newSquares[a] && newSquares[a] === newSquares[b] &&  newSquares[a] === newSquares[c]) {
@@ -32,7 +36,13 @@ export default function Board({ value, changeData, winner }) {
                 break
             }
         }
+
+        //Check if there is a draw
+        if (newSquares.every((square) => square !== null)) {
+            winner(null)
+        }
     }
+
     return (
         <div>
             <div className='grid grid-cols-3 gap-0 w-72 h-72  border-gray-700/75 contain rounded-xl overflow-clip border-4 shadow-md'>
