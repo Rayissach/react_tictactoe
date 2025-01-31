@@ -3,8 +3,17 @@ import React, { useState } from 'react'
 export default function Board({ value, changeData }) {
     //An array of null values to allow access to squares by index [null, null..]
     const [squares, setSquares] = useState(Array(9).fill(null)) 
+    const lines = [
+        [0,1,2] , [3,4,5], [6,7,8], //Rows
+        [0,4,8], [2,4,6],           //Diagonals
+        [0,3,6], [1,4,7], [2,5,8]   //Columns
+    ]
+
     //Function to update square values using it's index
     const handlePlayer = (index) => {
+        if (squares[index] !== null) {
+            return
+        }
         //Create copy of null squares array
         const newSquares = [...squares]
         //On click assign square at index prop value
@@ -12,6 +21,9 @@ export default function Board({ value, changeData }) {
         //Update hook with new value if not null
         setSquares(newSquares)
         changeData()
+        if (newSquares[(row1)] === 'X') {
+            console.log("W! for X")
+        }
     }
     return (
         <div>
