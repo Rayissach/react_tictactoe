@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 
-export default function Board({ value, changeData }) {
+export default function Board({ value, changeData, winner }) {
     //An array of null values to allow access to squares by index [null, null..]
     const [squares, setSquares] = useState(Array(9).fill(null)) 
+    const [gameOver, setGameOver] = useState(false)
+
     const lines = [
         [0,1,2] , [3,4,5], [6,7,8], //Rows
         [0,4,8], [2,4,6],           //Diagonals
@@ -26,7 +28,8 @@ export default function Board({ value, changeData }) {
         for (let line of lines) {
             const [a, b, c] = line
             if (newSquares[a] && newSquares[a] === newSquares[b] &&  newSquares[a] === newSquares[c]) {
-                console.log("Winner!!")
+                winner(newSquares[a])
+                break
             }
         }
     }
