@@ -7,6 +7,11 @@ function App() {
   const [value, setValue] = useState('X')
 
   const toggleValue = () => {
+    if (value === 'X') {
+      setMessage("O's Turn")
+    } else {
+      setMessage("X's Turn")
+    }
     setValue((prevPlayer) => prevPlayer === 'X' ? 'O' : 'X')
   }
 
