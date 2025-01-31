@@ -20,9 +20,14 @@ export default function Board({ value, changeData }) {
         newSquares[index] = value
         //Update hook with new value if not null
         setSquares(newSquares)
+        //Callback function to toggle values and update to parent
         changeData()
-        if (newSquares[(row1)] === 'X') {
-            console.log("W! for X")
+
+        for (let line of lines) {
+            const [a, b, c] = line
+            if (newSquares[a] && newSquares[a] === newSquares[b] &&  newSquares[a] === newSquares[c]) {
+                console.log("Winner!!")
+            }
         }
     }
     return (
