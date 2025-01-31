@@ -38,7 +38,7 @@ function App() {
 
   return (
     <div className='bg-[#392F5A] min-h-screen align-text-center'>
-      <h1 className='text-3xl bold text-[#A8C7BB] justify-self-center p-10 mb-25'>Tic Tac Toe</h1>
+      <h1 className='text-6xl bold text-[#A8C7BB] justify-self-center p-10 mb-20'>Tic Tac Toe</h1>
       <div className='flex items-center justify-center'>
         <Board changeData={toggleValue} value={value} winner={winner} reset={reset} gameOver={gameOver}/>
       </div>
